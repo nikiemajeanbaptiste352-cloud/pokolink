@@ -1,0 +1,1101 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * =====================================================================
+ *  AFRICONNECT – DESIGN TOKENS
+ *  Source unique de l'identité visuelle. Modifier ici fait évoluer
+ *  toute l'application sans toucher aux composants.
+ * =====================================================================
+ */
+
+:root {
+  /* Marque */
+  --brand: #0b6b3a; /* vert profond : actions principales, onglet actif, logo */
+  --brand-foreground: #ffffff;
+  --gold: #f2a900; /* or : prix, étoiles, mises en avant (Marché, Wallet) */
+  --gold-foreground: #231a00;
+  --violet: #5b3fd0; /* secondaire : boutons secondaires du Marché */
+  --violet-foreground: #ffffff;
+
+  /* Surfaces et texte (contraste AA vérifié) */
+  --background: #ffffff;
+  --foreground: #111814;
+  --card: #ffffff;
+  --card-foreground: #111814;
+  --popover: #ffffff;
+  --popover-foreground: #111814;
+  --muted: #f4f5f4;
+  --muted-foreground: #5f6b64;
+  --accent: #e8f3ec; /* survol / sélection douce teintée de vert */
+  --accent-foreground: #0b6b3a;
+  --border: #e4e8e5;
+  --input: #f0f2f0;
+  --ring: #0b6b3a;
+
+  /* Sémantiques */
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: #f0f2f0;
+  --secondary-foreground: #111814;
+  --destructive: #d92d3a; /* badges de notification, erreurs */
+  --destructive-foreground: #ffffff;
+  --danger: #c8202d; /* texte d'erreur sur fond de page (contraste AA) */
+  --success: #16a34a; /* en ligne, ouvert */
+  --warning: #d97706;
+  --info: #0369a1; /* catégories et informations neutres */
+
+  /* Formes */
+  --radius: 0.75rem; /* 12px : cartes */
+
+  /* Ombres (légères en clair) */
+  --elevation-card: 0 1px 2px rgb(17 24 20 / 0.06), 0 1px 3px rgb(17 24 20 / 0.04);
+  --elevation-float: 0 8px 24px rgb(17 24 20 / 0.12);
+
+  /* Gabarits de layout — plus compacts, style apps natives */
+  --bottom-nav-height: 3.5rem;
+  --header-height: 3.15rem;
+  --rail-width: 0px; /* mobile : pas de rail */
+  --page-pad-y: 0.75rem;
+  --page-gap: 0.75rem;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --rail-width: 5rem; /* md : rail étroit */
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --rail-width: 16rem; /* lg : panneau large */
+  }
+}
+
+.dark {
+  --brand: #2fb36b; /* vert éclairci pour garder le contraste sur fond sombre */
+  --brand-foreground: #04170c;
+  --gold: #f5b82e;
+  --gold-foreground: #231a00;
+  --violet: #6d4fe0;
+
+  --background: #0a0e0c;
+  --foreground: #f1f4f2;
+  --card: #131a16;
+  --card-foreground: #f1f4f2;
+  --popover: #131a16;
+  --popover-foreground: #f1f4f2;
+  --muted: #1a221e;
+  --muted-foreground: #9aa8a0;
+  --accent: #1c2a23;
+  --accent-foreground: #5fd896;
+  --border: #25302a;
+  --input: #1a221e;
+  --ring: #2fb36b;
+
+  --secondary: #1a221e;
+  --secondary-foreground: #f1f4f2;
+  --destructive: #dc2f3d; /* texte blanc dessus : contraste 4,6:1 */
+  --danger: #ff7a85; /* texte d'erreur éclairci pour le fond sombre */
+  --success: #34d27b;
+  --warning: #f59e0b;
+  --info: #38bdf8;
+
+  /* En sombre : bordures et surfaces plutôt qu'ombres */
+  --elevation-card: 0 0 0 1px rgb(255 255 255 / 0.04);
+  --elevation-float: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Rayons : pilule / carte / bannière */
+  --radius-sm: calc(var(--radius) - 4px); /* 8px */
+  --radius-md: calc(var(--radius) - 2px); /* 10px */
+  --radius-lg: var(--radius); /* 12px */
+  --radius-xl: calc(var(--radius) + 4px); /* 16px : bannières */
+  --radius-2xl: calc(var(--radius) + 8px); /* 20px */
+
+  --shadow-card: var(--elevation-card);
+  --shadow-float: var(--elevation-float);
+
+  /* Échelle typographique mobile (12 → 24px) */
+  --text-caption: 0.75rem; /* 12 : métadonnées */
+  --text-caption--line-height: 1rem;
+  --text-body: 0.9375rem; /* 15 : texte courant */
+  --text-body--line-height: 1.375rem;
+  --text-title: 1.0625rem; /* 17 : titres de section */
+  --text-title--line-height: 1.5rem;
+  --text-headline: 1.5rem; /* 24 : titres d'écran */
+  --text-headline--line-height: 2rem;
+
+  /* Points de rupture : mobile d'abord */
+  --breakpoint-sm: 40rem; /* 640 : grand mobile */
+  --breakpoint-md: 48rem; /* 768 : tablette (rail latéral) */
+  --breakpoint-lg: 64rem; /* 1024 : bureau (colonne centrée) */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--background);
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background-color: var(--background);
+  }
+
+  /* Remplit tout le viewport : pas de cadre / gutters autour de l’app. */
+  #root {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--background);
+  }
+
+  @media (min-width: 48rem) {
+    html,
+    body {
+      height: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: auto;
+    }
+  }
+
+  /* Un fieldset garde par défaut sa largeur minimale : il élargirait la page sur mobile. */
+  fieldset {
+    min-width: 0;
+  }
+
+  /* Focus clavier visible et cohérent : contour fin qui suit les arrondis. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Écran plein cadre dans la zone de contenu (au-dessus des onglets). */
+@utility h-content {
+  height: 100%;
+  min-height: 100%;
+
+  @media (min-width: 48rem) {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+}
+
+/* Cadre app native : shell fixe + onglets dockés + contenu scrollable. */
+@layer utilities {
+  .app-shell {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100vw;
+    background-color: var(--background);
+  }
+
+  .app-frame {
+    min-height: 0;
+    flex: 1;
+    width: 100%;
+    background-color: var(--background);
+  }
+
+  .app-main {
+    min-height: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    background-color: var(--background);
+  }
+
+  .app-tabbar {
+    width: 100%;
+    background-color: color-mix(in srgb, var(--background) 92%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 -0.5px 0 rgb(17 24 20 / 0.08);
+  }
+
+  /* Fond fil Canal Pro (ambiance Telegram, version claire). */
+  .canal-tg-wallpaper {
+    background-color: #dbe5f0;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgb(11 107 58 / 0.07) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 72% 42%, rgb(11 107 58 / 0.05) 0 1.2px, transparent 2px),
+      radial-gradient(circle at 40% 78%, rgb(15 23 42 / 0.05) 0 1.4px, transparent 2px);
+    background-size: 28px 28px, 36px 36px, 22px 22px;
+  }
+
+  @media (min-width: 48rem) {
+    .app-shell {
+      position: static;
+      display: block;
+      overflow: visible;
+    }
+
+    .app-frame {
+      min-height: auto;
+    }
+
+    .app-main {
+      overflow: visible;
+      overscroll-behavior-y: auto;
+    }
+  }
+
+  /* Rythme page compact (listes, formulaires, hubs). */
+  .page-body {
+    padding-block: var(--page-pad-y);
+    display: flex;
+    flex-direction: column;
+    gap: var(--page-gap);
+  }
+
+  .page-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Respecte la préférence système « réduire les animations ». */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Couleur d'accent d'un établissement : posée par `accentStyle()` sur un conteneur
+ * `.service-scope` (espace pro, profil public, carte de l'Espace Pro). Les composants
+ * utilisent toujours bg-primary / text-brand : seule la valeur change dans ce conteneur.
+ */
+.service-scope {
+  --brand: var(--service-accent, #0b6b3a);
+  --brand-foreground: #ffffff;
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --ring: var(--brand);
+  --accent: color-mix(in srgb, var(--brand) 7%, var(--background));
+  --accent-foreground: var(--brand);
+}
+
+.dark .service-scope {
+  --brand: var(--service-accent-dark, #2fb36b);
+  --brand-foreground: #0b0f0d;
+}
+
+/* Entrée légère des cartes Explorer (produits / restaurants) : opacity + translate only. */
+@keyframes explore-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Accueil : panneau publicitaire — fondu + léger zoom. */
+@keyframes home-promo-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes home-promo-ken {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes home-promo-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Accueil immersif : entrée douce des cartes du fil (style fil social). */
+@keyframes home-feed-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.65rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cotes : fil TikTok — hint « glisser » + fond provisoire vivant. */
+@keyframes cote-tiktok-hint {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0.25rem);
+  }
+}
+
+@keyframes cote-tiktok-glow {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.12) translate(2%, -1%);
+  }
+}
+
+@keyframes cote-tiktok-mark {
+  from {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  to {
+    transform: scale(1.06);
+    opacity: 0.16;
+  }
+}
+
+/* Classement : podium qui monte, rangées qui glissent. */
+@keyframes ranking-podium-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ranking-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ranking-crown-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.2rem);
+  }
+}
+
+/* Profil : entrée douce hero + panneaux. */
+@keyframes profile-hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes profile-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accueil profil / espace · choreography */
+@keyframes pro-welcome-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pro-welcome-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+@keyframes pro-welcome-stage {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.92);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes pro-welcome-stage-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.85rem) scale(1.04);
+    filter: blur(5px);
+  }
+}
+
+@keyframes pro-welcome-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pro-welcome-ring-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.86);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.28);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.28);
+  }
+}
+
+@keyframes pro-welcome-line {
+  from {
+    opacity: 0;
+    transform: scaleX(0.35);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pro-welcome-copy {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pro-welcome-orb {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pro-dash-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.65rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  /* Rangées horizontales défilantes sans barre visible */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Encoches iOS / Android */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .explore-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 16rem;
+    animation: explore-card-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .explore-card-stagger > :nth-child(1) .explore-card {
+    animation-delay: 0ms;
+  }
+  .explore-card-stagger > :nth-child(2) .explore-card {
+    animation-delay: 40ms;
+  }
+  .explore-card-stagger > :nth-child(3) .explore-card {
+    animation-delay: 80ms;
+  }
+  .explore-card-stagger > :nth-child(4) .explore-card {
+    animation-delay: 120ms;
+  }
+  .explore-card-stagger > :nth-child(5) .explore-card {
+    animation-delay: 160ms;
+  }
+  .explore-card-stagger > :nth-child(6) .explore-card {
+    animation-delay: 200ms;
+  }
+  .explore-card-stagger > :nth-child(7) .explore-card {
+    animation-delay: 240ms;
+  }
+  .explore-card-stagger > :nth-child(8) .explore-card {
+    animation-delay: 280ms;
+  }
+  .explore-card-stagger > :nth-child(n + 9) .explore-card {
+    animation-delay: 300ms;
+  }
+
+  .home-promo-slide {
+    animation: home-promo-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .home-promo-media {
+    animation: home-promo-ken 5.5s ease-out both;
+  }
+
+  .home-promo-progress {
+    transform-origin: left center;
+    animation: home-promo-progress 5s linear both;
+  }
+
+  /* Canvas Accueil façon Facebook : gris doux, blocs blancs, séparateurs fins. */
+  .home-immersive {
+    background: color-mix(in srgb, var(--muted) 88%, #c5c9d0);
+    min-height: 100%;
+  }
+
+  .home-immersive-surface {
+    background: var(--card);
+  }
+
+  .home-immersive-divider {
+    height: 0.5rem;
+    background: color-mix(in srgb, var(--muted) 70%, #9aa0a8);
+    border: none;
+  }
+
+  .home-feed-card {
+    background: var(--card);
+    animation: home-feed-card-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 28rem;
+  }
+
+  .home-feed-visual::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0.1) 0%,
+      transparent 26%,
+      transparent 62%,
+      rgb(0 0 0 / 0.18) 100%
+    );
+  }
+
+  .home-story-card {
+    transition: transform 0.18s ease;
+  }
+
+  .home-story-card:active {
+    transform: scale(0.97);
+  }
+
+  .home-header-frosted {
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: rgb(0 0 0 / 0.06);
+  }
+
+  .home-composer-field {
+    transition: background-color 0.15s ease;
+  }
+
+  .nav-tab-active-bar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2.75rem;
+    height: 0.18rem;
+    border-radius: 0 0 0.25rem 0.25rem;
+    background: var(--brand);
+    transform: translateX(-50%);
+  }
+
+  /* Profil : fond blanc / clair + accents verts marque. */
+  .profile-page {
+    background: color-mix(in srgb, var(--muted) 55%, var(--background));
+    min-height: 100%;
+  }
+
+  .profile-hero-cover {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--brand) 88%, #0a3d24) 0%,
+        color-mix(in srgb, var(--brand) 55%, #1a5c38) 48%,
+        color-mix(in srgb, var(--brand) 35%, #0f766e) 100%
+      );
+  }
+
+  .profile-hero-card {
+    animation: profile-hero-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .profile-panel {
+    animation: profile-panel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .profile-section {
+    animation: profile-panel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .profile-section-delay-1 {
+    animation-delay: 40ms;
+  }
+  .profile-section-delay-2 {
+    animation-delay: 80ms;
+  }
+  .profile-section-delay-3 {
+    animation-delay: 120ms;
+  }
+  .profile-section-delay-4 {
+    animation-delay: 160ms;
+  }
+
+  /* Fiche détail événement : viewport fixe, CTA collé en bas. */
+  .app-main:has(.event-detail-screen),
+  .app-main:has(.cote-tiktok) {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .event-detail-screen {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .event-detail-scroll {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .event-detail-cta {
+    flex-shrink: 0;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--background) 92%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Fil TikTok (cotes / coins / événements) : viewport fixe, scroll interne uniquement. */
+
+  .cote-tiktok {
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  @media (min-width: 48rem) {
+    .app-main:has(.event-detail-screen),
+    .app-main:has(.cote-tiktok) {
+      height: 100dvh;
+      max-height: 100dvh;
+    }
+
+    .event-detail-screen,
+    .cote-tiktok {
+      height: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .cote-tiktok-feed {
+    height: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cote-tiktok-slide {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+  }
+
+  .cote-tiktok-hint {
+    animation: cote-tiktok-hint 1.6s ease-in-out infinite;
+  }
+
+  .cote-tiktok-poster-glow {
+    animation: cote-tiktok-glow 8s ease-in-out alternate infinite;
+  }
+
+  .cote-tiktok-poster-mark {
+    animation: cote-tiktok-mark 5s ease-in-out alternate infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-feed-card,
+    .home-promo-slide,
+    .home-promo-media,
+    .home-promo-progress,
+    .cote-tiktok-hint,
+    .cote-tiktok-poster-glow,
+    .cote-tiktok-poster-mark,
+    .pro-welcome,
+    .pro-welcome-exit,
+    .pro-welcome-stage-in,
+    .pro-welcome-stage-out,
+    .pro-welcome-mark,
+    .pro-welcome-ring,
+    .pro-welcome-eyebrow,
+    .pro-welcome-hello,
+    .pro-welcome-name,
+    .pro-welcome-rule,
+    .pro-welcome-sub,
+    .pro-welcome-hint,
+    .pro-welcome-orb,
+    .pro-dash-section {
+      animation: none !important;
+    }
+
+    .home-feed-visual img,
+    .home-feed-visual .size-28 {
+      transition: none !important;
+    }
+  }
+
+  /* Wallet · carte solde */
+  .wallet-balance-mesh {
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 0%, rgb(255 255 255 / 0.22), transparent 60%),
+      radial-gradient(ellipse 40% 35% at 90% 80%, rgb(255 255 255 / 0.1), transparent 55%);
+  }
+  .wallet-balance-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(26px);
+    pointer-events: none;
+  }
+  .wallet-balance-orb-a {
+    top: -2rem;
+    right: -1.5rem;
+    width: 9rem;
+    height: 9rem;
+    background: rgb(255 255 255 / 0.16);
+  }
+  .wallet-balance-orb-b {
+    bottom: -3rem;
+    left: -2rem;
+    width: 11rem;
+    height: 11rem;
+    background: rgb(0 0 0 / 0.12);
+  }
+  .wallet-page .wallet-balance {
+    animation: pro-welcome-fade 0.45s ease-out both;
+  }
+
+  .pro-welcome {
+    animation: pro-welcome-fade 0.4s ease-out both;
+  }
+  .pro-welcome-exit {
+    animation: pro-welcome-out 0.42s ease-in both;
+  }
+  .pro-welcome-mesh {
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 38%, rgb(255 255 255 / 0.2), transparent 62%),
+      radial-gradient(ellipse 45% 35% at 18% 78%, rgb(255 255 255 / 0.1), transparent 55%),
+      radial-gradient(ellipse 40% 30% at 88% 18%, rgb(255 255 255 / 0.12), transparent 50%);
+  }
+  .pro-welcome-vignette {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, transparent 35%, rgb(0 0 0 / 0.28) 100%),
+      linear-gradient(180deg, rgb(0 0 0 / 0.12) 0%, transparent 28%, transparent 72%, rgb(0 0 0 / 0.18) 100%);
+  }
+  .pro-welcome-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(28px);
+    pointer-events: none;
+    animation: pro-welcome-orb 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .pro-welcome-orb-a {
+    top: 12%;
+    left: 8%;
+    width: 11rem;
+    height: 11rem;
+    background: rgb(255 255 255 / 0.16);
+  }
+  .pro-welcome-orb-b {
+    right: 4%;
+    bottom: 16%;
+    width: 14rem;
+    height: 14rem;
+    background: rgb(255 255 255 / 0.1);
+    animation-delay: 120ms;
+  }
+  .pro-welcome-stage-in {
+    animation: pro-welcome-stage 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .pro-welcome-stage-out {
+    animation: pro-welcome-stage-out 0.4s ease-in both;
+  }
+  .pro-welcome-stage-in .pro-welcome-mark {
+    animation: pro-welcome-mark 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .pro-welcome-stage-in .pro-welcome-ring-outer {
+    animation: pro-welcome-ring-pulse 1.35s ease-out 0.15s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-ring-inner {
+    animation: pro-welcome-ring-pulse 1.35s ease-out 0.4s both;
+  }
+  .pro-welcome-ring {
+    position: absolute;
+    inset: -0.35rem;
+    border-radius: 1.65rem;
+    border: 1.5px solid rgb(255 255 255 / 0.35);
+  }
+  .pro-welcome-ring-inner {
+    inset: -0.85rem;
+    border-radius: 1.9rem;
+    border-color: rgb(255 255 255 / 0.18);
+  }
+  .pro-welcome-stage-in .pro-welcome-eyebrow {
+    animation: pro-welcome-copy 0.45s ease-out 0.18s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-hello {
+    animation: pro-welcome-copy 0.45s ease-out 0.28s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-name {
+    animation: pro-welcome-copy 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-rule {
+    animation: pro-welcome-line 0.45s ease-out 0.5s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-sub {
+    animation: pro-welcome-copy 0.45s ease-out 0.58s both;
+  }
+  .pro-welcome-stage-in .pro-welcome-hint {
+    animation: pro-welcome-copy 0.4s ease-out 0.75s both;
+  }
+  .pro-dash-section {
+    animation: pro-dash-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .pro-dash-section:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .pro-dash-section:nth-child(2) {
+    animation-delay: 90ms;
+  }
+  .pro-dash-section:nth-child(3) {
+    animation-delay: 140ms;
+  }
+  .pro-dash-section:nth-child(4) {
+    animation-delay: 190ms;
+  }
+  .pro-dash-section:nth-child(5) {
+    animation-delay: 240ms;
+  }
+
+  .ranking-podium-slot {
+    animation: ranking-podium-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .ranking-podium-slot-1 {
+    animation-delay: 80ms;
+  }
+  .ranking-podium-slot-2 {
+    animation-delay: 0ms;
+  }
+  .ranking-podium-slot-3 {
+    animation-delay: 140ms;
+  }
+
+  .ranking-crown {
+    animation: ranking-crown-soft 2.8s ease-in-out infinite;
+  }
+
+  .ranking-row {
+    animation: ranking-row-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .ranking-row-stagger > :nth-child(1) .ranking-row {
+    animation-delay: 180ms;
+  }
+  .ranking-row-stagger > :nth-child(2) .ranking-row {
+    animation-delay: 220ms;
+  }
+  .ranking-row-stagger > :nth-child(3) .ranking-row {
+    animation-delay: 260ms;
+  }
+  .ranking-row-stagger > :nth-child(4) .ranking-row {
+    animation-delay: 300ms;
+  }
+  .ranking-row-stagger > :nth-child(5) .ranking-row {
+    animation-delay: 340ms;
+  }
+  .ranking-row-stagger > :nth-child(6) .ranking-row {
+    animation-delay: 380ms;
+  }
+  .ranking-row-stagger > :nth-child(n + 7) .ranking-row {
+    animation-delay: 400ms;
+  }
+}
+
+/*
+ * Impression du reçu d'un ticket de paiement (`/tickets/:id`, « Télécharger le reçu ») :
+ * seule la figure `data-print-ticket` est imprimée, ce qui permet aussi de l'enregistrer en PDF.
+ */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  [data-print-ticket],
+  [data-print-ticket] * {
+    visibility: visible;
+  }
+  [data-print-ticket] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(100%, 120mm);
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Encoches de perforation : masquer à l’impression. */
+  [data-print-ticket] .ticket-notch {
+    display: none !important;
+  }
+}

@@ -1,0 +1,158 @@
+import {
+  Bell,
+  CalendarDays,
+  ChartColumn,
+  ClipboardList,
+  Crown,
+  Handshake,
+  History,
+  LayoutDashboard,
+  Megaphone,
+  Rocket,
+  Package,
+  ScanLine,
+  Settings,
+  Star,
+  Users,
+  HandCoins,
+} from 'lucide-react'
+
+import type { ServiceTool, ServiceToolId } from '@/types/service'
+
+/** Outils de l'espace professionnel d'un service (cahier des charges, étape 3). */
+export const SERVICE_TOOLS: readonly ServiceTool[] = [
+  {
+    id: 'dashboard',
+    label: 'Tableau de bord',
+    description: "Vue d'ensemble de l'activité",
+    icon: LayoutDashboard,
+    tone: 'brand',
+    segment: '',
+  },
+  {
+    id: 'catalog',
+    label: 'Catalogue',
+    description: 'Ce que propose votre établissement',
+    icon: Package,
+    tone: 'gold',
+    segment: 'catalogue',
+  },
+  {
+    id: 'orders',
+    label: 'Commandes',
+    description: 'Suivre les commandes des clients',
+    icon: ClipboardList,
+    tone: 'info',
+    segment: 'commandes',
+  },
+  {
+    id: 'scanner',
+    label: 'Scanner',
+    description: 'Vérifier les tickets et les cartes d’abonnement',
+    icon: ScanLine,
+    tone: 'brand',
+    segment: 'scanner',
+  },
+  {
+    id: 'subscriptions',
+    label: 'Abonnements',
+    description: 'Abonnés et forfaits commerciaux',
+    icon: Crown,
+    tone: 'amber',
+    segment: 'abonnements',
+  },
+  {
+    id: 'events',
+    label: 'Événements',
+    description: 'Market Event : participations et création',
+    icon: CalendarDays,
+    tone: 'info',
+    segment: 'evenements',
+  },
+  {
+    id: 'ads',
+    label: 'Publicité',
+    description: 'Créer et suivre vos campagnes',
+    icon: Rocket,
+    tone: 'red',
+    segment: 'publicite',
+  },
+  {
+    id: 'affiliation',
+    label: 'Affiliation',
+    description: 'Programme, affiliés et commissions',
+    icon: Handshake,
+    tone: 'brand',
+    segment: 'affiliation',
+  },
+  {
+    id: 'channel',
+    label: 'Canal',
+    description: 'Publications et communauté',
+    icon: Megaphone,
+    tone: 'violet',
+    segment: 'canal',
+  },
+  {
+    id: 'reviews',
+    label: 'Avis',
+    description: 'Avis et réponses aux clients',
+    icon: Star,
+    tone: 'gold',
+    segment: 'avis',
+  },
+  {
+    id: 'customers',
+    label: 'Clients',
+    description: 'Votre clientèle',
+    icon: Users,
+    tone: 'brand',
+    segment: 'clients',
+  },
+  {
+    id: 'credits',
+    label: 'Crédits clients',
+    description: 'Dettes, remboursements et configuration',
+    icon: HandCoins,
+    tone: 'amber',
+    segment: 'credits',
+  },
+  {
+    id: 'history',
+    label: 'Historique',
+    description: 'Paiements, tickets et vérification',
+    icon: History,
+    tone: 'neutral',
+    segment: 'historique',
+  },
+  {
+    id: 'reports',
+    label: 'Rapports',
+    description: 'Ventes et performances',
+    icon: ChartColumn,
+    tone: 'amber',
+    segment: 'rapports',
+  },
+  {
+    id: 'notifications',
+    label: 'Notifications',
+    description: 'Alertes de votre établissement',
+    icon: Bell,
+    tone: 'red',
+    segment: 'notifications',
+  },
+  {
+    id: 'settings',
+    label: 'Configuration',
+    description: 'Profil, horaires, paiements, tickets',
+    icon: Settings,
+    tone: 'neutral',
+    segment: 'configuration',
+  },
+]
+
+const toolById = new Map(SERVICE_TOOLS.map((tool) => [tool.id, tool]))
+
+export function getServiceTool(id: ServiceToolId): ServiceTool {
+  return toolById.get(id) ?? SERVICE_TOOLS[0]!
+}
